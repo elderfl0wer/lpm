@@ -34,6 +34,8 @@ enum OPTION parse_options(const char *arg)
 
 int main(int argc, char *argv[])
 {
+    set_user_home();
+
     if (sodium_init() != 0) {
         printf("There was some problem with LPM.");
         abort();

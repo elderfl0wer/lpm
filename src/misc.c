@@ -6,15 +6,18 @@
 
 char user_home[512] = {0};
 
-bool file_exists(const char *filename)
+void set_user_home()
 {
-    const char *file_path = getenv("HOME");
+        const char *file_path = getenv("HOME");
     if (file_path == NULL) {
         file_path = getenv("USERPROFILE");
     }
 
     snprintf(user_home, sizeof(user_home), "%s/.lpm", file_path);
+}
 
+bool file_exists(const char *filename)
+{
     FILE *file = fopen(user_home, "r");
     if (file == NULL) {
         return false;

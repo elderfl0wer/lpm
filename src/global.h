@@ -19,6 +19,7 @@ void lpm_create();
 
 void lpm_invalid();
 
+void set_user_home();
 bool file_exists(const char *filename);
 
 
