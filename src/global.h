@@ -7,6 +7,7 @@ typedef struct {
     char *identityName;
     char *email;
     char phoneNumber[16];
+    char *password;
 } Identity;
 
 /*  ~/.lpm for both Windows & Linux is held in this variable.  */

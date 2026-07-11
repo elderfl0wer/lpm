@@ -65,6 +65,7 @@ void lpm_create()
     char nameBuffer[256];
     char emailBuffer[256];
     char phoneBuffer[256];
+    char passwordBuffer[256];
 
     printf("Please fill in the following details.\n\n");
 
@@ -102,15 +103,29 @@ void lpm_create()
             if (strlen(phoneBuffer) > 0) {
                 strcpy(p.phoneNumber, phoneBuffer);
             }
-}
+    }
 
+    printf("\nEnter Password (IMMUTABLE): ");
+    if (fgets(passwordBuffer, sizeof(passwordBuffer), stdin) != NULL) {
+        passwordBuffer[strcspn(passwordBuffer, "\n")] = '\0';
+        if (strlen(passwordBuffer) > 4) {
+            strcpy(p.password, passwordBuffer);
+        } else {
+            printf("Invalid Password. Length must be greater than 4 characters.");
+            return;
+        }
+    }
+    
     FILE *writeIdentity = fopen(user_home, "a");
+    if (!writeIdentity) {
+        perror("There was some problem accessing files on your machine.");
+        return;
+    }
     fprintf(writeIdentity,
 
         "name=%s\n"
         "email=%s\n"
-        "phone=%s\n",
-        "\n",
+        "phone=%s\n\n",
             
     p.identityName, p.email, p.phoneNumber);
     fclose(writeIdentity);
