@@ -4,7 +4,7 @@
 
 #include "global.h"
 
-char user_home[512];
+char user_home[512] = {0};
 
 bool file_exists(const char *filename)
 {

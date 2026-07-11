@@ -1,8 +1,14 @@
-#include <stdio.h>
 #include <stdbool.h>
 
 #ifndef GLOBAL_H
 #define GLOBAL_H
+
+typedef struct {
+    char *identityName;
+    char *email;
+    char phoneNumber[16];
+} Identity;
+
 extern char user_home[512];
 
 void lpm_help();
