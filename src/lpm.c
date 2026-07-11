@@ -50,7 +50,12 @@ void lpm_init()
         return;
     }
 
-        
+    printf("LPM has been successfully initialized for you.");
+}
+
+void lpm_create()
+{
+
 }
 
 void lpm_invalid()
