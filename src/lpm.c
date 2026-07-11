@@ -76,11 +76,11 @@ void lpm_create()
         p.identityName = strdup(nameBuffer);
         }
     }  */
-      if (fgets(nameBuffer, sizeof(nameBuffer), stdin)) {
-            nameBuffer[strcspn(nameBuffer, "\n")] = '\0';
-
-        if (*nameBuffer)
+    if (fgets(nameBuffer, sizeof(nameBuffer), stdin)) {
+        nameBuffer[strcspn(nameBuffer, "\n")] = '\0';
+        if (*nameBuffer) {
             p.identityName = strdup(nameBuffer);
+        }
     }  
 
     if (p.identityName == NULL) {
@@ -91,15 +91,17 @@ void lpm_create()
     printf("EMAIL: ");
     if (fgets(emailBuffer, sizeof(emailBuffer), stdin) != NULL) {
         emailBuffer[strcspn(emailBuffer, "\n")] = '\0';
-            if (strlen(emailBuffer) > 0)
+            if (strlen(emailBuffer) > 0) {
                 p.email = strdup(emailBuffer);
+            }
     }
 
     printf("Phone No.: ");
     if (fgets(phoneBuffer, sizeof(phoneBuffer), stdin) != NULL) {
         phoneBuffer[strcspn(phoneBuffer, "\n")] = '\0';
-            if (strlen(phoneBuffer) > 0)
+            if (strlen(phoneBuffer) > 0) {
                 strcpy(p.phoneNumber, phoneBuffer);
+            }
 }
 
     FILE *writeIdentity = fopen(user_home, "a");
