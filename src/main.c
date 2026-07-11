@@ -9,6 +9,8 @@
 enum OPTION {
     INIT,
     HELP,
+    GUIDE,
+
     INVALID
 };
 
@@ -18,6 +20,8 @@ enum OPTION parse_options(const char *arg)
         return HELP;
     } else if (strcmp(arg, "init") == 0) {
         return INIT;
+    } else if (strcmp(arg, "guide") == 0) {
+        return GUIDE;
     }
 
     else {
@@ -44,6 +48,9 @@ int main(int argc, char *argv[])
         break;
         case HELP:
             lpm_help();
+        break;
+        case GUIDE:
+            lpm_guide();
         break;
 
         default:

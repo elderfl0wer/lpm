@@ -1,8 +1,6 @@
 /*only for testing*/
-#include <corecrt_search.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "global.h"
 
@@ -21,7 +19,7 @@ void lpm_help()
     );
 }
 
-void lpm_init()
+void lpm_guide()
 {
     printf(
 "LPM - Lightweight Password Manager\n"
@@ -35,24 +33,24 @@ void lpm_init()
         "You only need to run the init command ONCE, which you have, there is no need to run this command\n"
         "again.\n"
         "\n"
-        "Run `lpm create`\n"
 
     );
+}
 
+void lpm_init()
+{
     if (file_exists(user_home) == true) {
-        printf(
-    "LPM is already initialized for you.\n"
-            "Run the `create` command next or run\n"
-            "run the `help` command to see options.\n"
-        );
-    } else {
-        FILE *identityfile = fopen(user_home, "w");
-
-        if (identityfile == NULL) {
-            printf("Something went wrong accessing files...");
-        }
-
+        printf("LPM has already been initialized for you. No need to run init again.\n");
+        return;
     }
+
+    FILE *identityfile = fopen(user_home, "w");
+    if (identityfile == NULL) {
+        printf("Something went wrong accessing files...");
+        return;
+    }
+
+        
 }
 
 void lpm_invalid()
