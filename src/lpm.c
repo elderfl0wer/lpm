@@ -70,12 +70,18 @@ void lpm_create()
 
     printf("Identity Name: ");
 
-    if (fgets(nameBuffer, sizeof(nameBuffer), stdin) != NULL) {
+    /* if (fgets(nameBuffer, sizeof(nameBuffer), stdin) != NULL) {
         nameBuffer[strcspn(nameBuffer, "\n")] = '\0';
         if (strlen(nameBuffer) > 0) {
         p.identityName = strdup(nameBuffer);
         }
-    }   
+    }  */
+      if (fgets(nameBuffer, sizeof(nameBuffer), stdin)) {
+            nameBuffer[strcspn(nameBuffer, "\n")] = '\0';
+
+        if (*nameBuffer)
+            p.identityName = strdup(nameBuffer);
+    }  
 
     if (p.identityName == NULL) {
         printf("Identity Name is a mandatory field & cannot be left blank.\n");
@@ -83,17 +89,29 @@ void lpm_create()
     }
 
     printf("EMAIL: ");
-    fgets(emailBuffer, sizeof(emailBuffer), stdin);
-    if (strlen(emailBuffer) > 0) {
-        p.email = strdup(emailBuffer);
-    }   
-
-    printf("Phone No.: ");
-    fgets(phoneBuffer, sizeof(phoneBuffer), stdin);
-    if (strlen(phoneBuffer) > 0) {
-        strcpy(p.phoneNumber, phoneBuffer);
+    if (fgets(emailBuffer, sizeof(emailBuffer), stdin) != NULL) {
+        emailBuffer[strcspn(emailBuffer, "\n")] = '\0';
+            if (strlen(emailBuffer) > 0)
+                p.email = strdup(emailBuffer);
     }
 
+    printf("Phone No.: ");
+    if (fgets(phoneBuffer, sizeof(phoneBuffer), stdin) != NULL) {
+        phoneBuffer[strcspn(phoneBuffer, "\n")] = '\0';
+            if (strlen(phoneBuffer) > 0)
+                strcpy(p.phoneNumber, phoneBuffer);
+}
+
+    FILE *writeIdentity = fopen(user_home, "a");
+    fprintf(writeIdentity,
+
+        "name=%s\n"
+        "email=%s\n"
+        "phone=%s\n",
+        "\n",
+            
+    p.identityName, p.email, p.phoneNumber);
+    fclose(writeIdentity);
 }
 
 void lpm_invalid()
