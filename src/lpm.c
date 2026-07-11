@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include "global.h"
 
@@ -116,7 +117,7 @@ void lpm_create()
     if (p.password == NULL) {
         printf("Password is a mandatory field & cannot be left blank.\n");
         return;
-    }
+    } 
     
     
     FILE *writeIdentity = fopen(user_home, "a");
@@ -124,13 +125,25 @@ void lpm_create()
         perror("There was some problem accessing files on your machine.");
         return;
     }
-    fprintf(writeIdentity,
 
-        "name=%s\n"
-        "email=%s\n"
-        "phone=%s\n\n",
-            
-    p.identityName, p.email, p.phoneNumber);
+    time_t t;
+    struct tm *tmp;
+    char creationTime[50];
+    time(&t);
+
+    tmp = localtime(&t);
+    strftime(creationTime, sizeof(creationTime), "%c", tmp);
+
+    fprintf(writeIdentity,
+    "name=%s\n"
+    "email=%s\n"
+    "phone=%s\n"
+    "creationtime=%s\n\n",
+
+    p.identityName,
+    p.email,
+    p.phoneNumber,
+    creationTime);
     fclose(writeIdentity);
 }
 
