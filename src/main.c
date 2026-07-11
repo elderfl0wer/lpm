@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "../libs/libsodium/include/sodium.h"
@@ -26,6 +28,8 @@ enum OPTION parse_options(const char *arg)
 int main(int argc, char *argv[])
 {
     if (sodium_init() != 0) {
+        printf("There was some problem with LPM.");
+        abort();
         return -1;
     }
 

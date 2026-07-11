@@ -1,5 +1,8 @@
 /*only for testing*/
+#include <corecrt_search.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "global.h"
 
@@ -35,6 +38,21 @@ void lpm_init()
         "Run `lpm create`\n"
 
     );
+
+    if (file_exists(user_home) == true) {
+        printf(
+    "LPM is already initialized for you.\n"
+            "Run the `create` command next or run\n"
+            "run the `help` command to see options.\n"
+        );
+    } else {
+        FILE *identityfile = fopen(user_home, "w");
+
+        if (identityfile == NULL) {
+            printf("Something went wrong accessing files...");
+        }
+
+    }
 }
 
 void lpm_invalid()
