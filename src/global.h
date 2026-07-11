@@ -9,6 +9,7 @@ typedef struct {
     char phoneNumber[16];
 } Identity;
 
+/*  ~/.lpm for both Windows & Linux is held in this variable.  */
 extern char user_home[512];
 
 void lpm_help();

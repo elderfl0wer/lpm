@@ -1,6 +1,7 @@
-/*only for testing*/
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
+#include <vcruntime.h>
 
 #include "global.h"
 
@@ -21,6 +22,7 @@ void lpm_help()
 
 void lpm_guide()
 {
+    // TODO: rewrite guide.
     printf(
 "LPM - Lightweight Password Manager\n"
         "\n"
@@ -55,6 +57,43 @@ void lpm_init()
 
 void lpm_create()
 {
+    if (file_exists(user_home) == false) {
+        printf("LPM doesn't seem to be initialized.\n");
+        return;
+    }
+
+    Identity p = {0};
+    char nameBuffer[256];
+    char emailBuffer[256];
+    char phoneBuffer[256];
+
+    printf("Please fill in the following details.\n\n");
+
+    printf("Identity Name: ");
+
+    if (fgets(nameBuffer, sizeof(nameBuffer), stdin) != NULL) {
+        nameBuffer[strcspn(nameBuffer, "\n")] = '\0';
+        if (strlen(nameBuffer) > 0) {
+        p.identityName = strdup(nameBuffer);
+        }
+    }   
+
+    if (p.identityName == NULL) {
+        printf("Identity Name is a mandatory field & cannot be left blank.\n");
+        return;
+    }
+
+    printf("EMAIL: ");
+    fgets(emailBuffer, sizeof(emailBuffer), stdin);
+    if (strlen(emailBuffer) > 0) {
+        p.email = strdup(emailBuffer);
+    }   
+
+    printf("Phone No.: ");
+    fgets(phoneBuffer, sizeof(phoneBuffer), stdin);
+    if (strlen(phoneBuffer) > 0) {
+        strcpy(p.phoneNumber, phoneBuffer);
+    }
 
 }
 
