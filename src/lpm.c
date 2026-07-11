@@ -101,20 +101,23 @@ void lpm_create()
     if (fgets(phoneBuffer, sizeof(phoneBuffer), stdin) != NULL) {
         phoneBuffer[strcspn(phoneBuffer, "\n")] = '\0';
             if (strlen(phoneBuffer) > 0) {
-                strcpy(p.phoneNumber, phoneBuffer);
+                p.phoneNumber = strdup(phoneBuffer);
             }
     }
 
     printf("\nEnter Password (IMMUTABLE): ");
-    if (fgets(passwordBuffer, sizeof(passwordBuffer), stdin) != NULL) {
+    if (fgets(passwordBuffer, sizeof(passwordBuffer), stdin)) {
         passwordBuffer[strcspn(passwordBuffer, "\n")] = '\0';
-        if (strlen(passwordBuffer) > 4) {
-            strcpy(p.password, passwordBuffer);
-        } else {
-            printf("Invalid Password. Length must be greater than 4 characters.");
-            return;
+        if (*passwordBuffer) {
+            p.password = strdup(passwordBuffer);
         }
+    }  
+
+    if (p.password == NULL) {
+        printf("Password is a mandatory field & cannot be left blank.\n");
+        return;
     }
+    
     
     FILE *writeIdentity = fopen(user_home, "a");
     if (!writeIdentity) {

@@ -6,7 +6,7 @@
 typedef struct {
     char *identityName;
     char *email;
-    char phoneNumber[16];
+    char *phoneNumber;
     char *password;
 } Identity;
 
