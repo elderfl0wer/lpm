@@ -1,4 +1,3 @@
-#include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,5 +50,17 @@ bool folder_exists(const char *foldername)
     }
 
     return S_ISDIR(stats.st_mode);
+#endif
+}
+
+void set_user_data_dir()
+{
+#ifdef _WIN32
+    const char *local_app_data = getenv("LOCALAPPDATA");
+    snprintf(user_data_dir, sizeof(user_data_dir), "%s\\LPM", local_app_data);
+
+#else
+    const char *app_data = getenv("HOME");
+    snprintf(user_data_dir, sizeof(user_data_dir), "%s\\.config\\share\\LPM", app_data);
 #endif
 }

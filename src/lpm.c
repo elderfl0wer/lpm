@@ -62,6 +62,11 @@ void lpm_create()
         return;
     }
 
+    if (folder_exists(user_data_dir) == false) {
+        printf("LPM doesn't seem to be initialized.\n");
+        return;
+    }
+
     Identity p = {0};
     char nameBuffer[256];
     char emailBuffer[256];

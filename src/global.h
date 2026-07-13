@@ -13,6 +13,7 @@
     #include <sys/stat.h>
     #include <sys/types.h>
     #include <unistd.h>
+    #include <errno.h>
 #endif
 
 typedef struct {
@@ -35,6 +36,7 @@ void lpm_invalid();
 
 void set_user_home();
 bool file_exists(const char *filename);
+bool folder_exists(const char *foldername);
 void set_user_data_dir();
 
 
