@@ -83,7 +83,7 @@ void lpm_create()
         if (*nameBuffer) {
             p.identityName = strdup(nameBuffer);
         }
-    }  
+    }
 
     if (p.identityName == NULL) {
         printf("Identity Name is a mandatory field & cannot be left blank.\n");
@@ -112,14 +112,14 @@ void lpm_create()
         if (*passwordBuffer) {
             p.password = strdup(passwordBuffer);
         }
-    }  
+    }
 
     if (p.password == NULL) {
         printf("Password is a mandatory field & cannot be left blank.\n");
         return;
-    } 
-    
-    
+    }
+
+
     FILE *writeIdentity = fopen(user_home, "a");
     if (!writeIdentity) {
         perror("There was some problem accessing files on your machine.");

@@ -1,10 +1,15 @@
+#include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+// #include <Windows.h>
+
+/* Includes Windows.h */
 #include "global.h"
 
 char user_home[512] = {0};
+char user_data_dir[1024] = {0};
 
 void set_user_home()
 {
@@ -25,4 +30,26 @@ bool file_exists(const char *filename)
         fclose(file);
         return true;
     }
+}
+
+bool folder_exists(const char *foldername)
+{
+#ifdef _WIN32
+    DWORD attributes = GetFileAttributesA(foldername);
+
+    if (attributes == INVALID_FILE_ATTRIBUTES) {
+        return false;
+    }
+
+    return (attributes & FILE_ATTRIBUTE_DIRECTORY) != 0;
+
+#else // UNIX
+    struct stat stats;
+
+    if (stat(foldername, &stats) == -1) {
+        return false; 
+    }
+
+    return S_ISDIR(stats.st_mode);
+#endif
 }
